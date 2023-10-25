@@ -1,0 +1,18 @@
+{
+  "global": {
+    "xrns_in": "./xrns_examples/",
+    "data_out": "./data/",
+    "music_path": "res://music/",
+    "music_format": ".wav"
+  },
+  "songs": {
+    "pitcher": {
+      "name": "pitcher",
+      "window": 70.0,
+      "cue": -1,
+      "insts": [
+        "kick", "snare", "bass", "melody", "solo", "arp"
+      ]
+    }
+  }
+}

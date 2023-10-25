@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from zipfile import ZipFile
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -88,8 +89,11 @@ class GlobalSongData:
 class Instrument:
 
     def __init__(self, element: Element):
-        nameElement = element.find('Name')
-        self.name: str = nameElement.text if nameElement else ''
+        self.name = ''
+        for thing in element:
+            if thing.tag == 'Name':
+                self.name = thing.text
+                break
         self.transpose: int = int(element.find('GlobalProperties').find('Transpose').text)
 
 
@@ -137,20 +141,20 @@ class Pattern:
                 self.note: str = 'C-5'
             self.note.replace('-', '')
 
-            self.instrument: int = int(inst_element.text, 16) if inst_element else -1
+            self.instrument: int = int(inst_element.text, 16) if inst_element is not None else -1
 
             try:
-                self.volume: int = int(vol_element.text, 16) if vol_element else 127
+                self.volume: int = int(vol_element.text, 16) if vol_element is not None else 127
             except ValueError:
                 self.volume = 128
 
             try:
-                self.panning: int = int(pan_element.text, 16) if pan_element else 64
+                self.panning: int = int(pan_element.text, 16) if pan_element is not None else 64
             except ValueError:
                 self.panning = 64
 
             try:
-                self.delay: int = int(del_element.text, 16) if del_element else 0
+                self.delay: int = int(del_element.text, 16) if del_element is not None else 0
             except ValueError:
                 self.delay = 0
 
@@ -180,10 +184,10 @@ class Pattern:
     class PatternTrack:
 
         def __init__(self, element: Element):
-            self.lines: dict[int, Pattern.Line] = {}
+            self.lines: dict[int, Pattern.Line] = OrderedDict()
             if lines := element.find('Lines'):
                 for child in lines:
-                    index = child.attrib.get('index', 0)
+                    index = int(child.attrib.get('index', 0))
                     self.lines[index] = Pattern.Line(child)
 
     def __init__(self, element: Element):

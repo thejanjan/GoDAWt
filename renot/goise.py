@@ -26,8 +26,9 @@ class GoiseSongData:
 
     script_id = '1_nirk5'
 
-    def __init__(self, song_path: str = 'res://music/song.wav'):
+    def __init__(self, song_path: str = 'res://music/song.wav', window: float = 0.0):
         self.song_path: str = song_path
+        self.window: float = window
         self.instruments: list[GoiseInstrument] = []
 
     """
@@ -57,10 +58,11 @@ class GoiseSongData:
         f"""[resource]\n""" \
         f"""script = ExtResource("{GoiseSongData.script_id}")\n""" \
         f"""song_path = "{self.song_path}"\n""" \
+        f"""window = {self.window}\n""" \
         f"""instruments = Array[ExtResource("{GoiseInstrument.script_id}")]([{', '.join([
             f'SubResource("{instrument.get_unique_id()}")'
             for instrument in self.instruments
-        ])}])"""
+        ])}])\n"""
         output += last_ref
 
         # Create header.

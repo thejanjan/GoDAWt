@@ -106,6 +106,9 @@ class GoiseInstrument:
             load_steps += new_steps
             output += output_text
 
+        # Sort notes.
+        self.notes = sorted(self.notes, key=lambda n: n.time)
+
         # Create our own resource reference.
         output += \
         f"""[sub_resource type="Resource" id="{self.get_unique_id()}"]\n""" \

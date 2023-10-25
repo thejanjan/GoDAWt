@@ -132,14 +132,11 @@ class Pattern:
             fxn_element  = element.find('EffectNumber')
             fxv_element  = element.find('EffectValue')
 
-            if note_element:
-                if note_element.text == 'OFF':
-                    self.note: str = 'OFF'
-                else:
-                    self.note: str = note_element.text
+            if note_element is not None:
+                self.note: str = note_element.text
             else:
                 self.note: str = 'C-5'
-            self.note.replace('-', '')
+            self.note = self.note.replace('-', '')
 
             self.instrument: int = int(inst_element.text, 16) if inst_element is not None else -1
 

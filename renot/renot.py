@@ -90,9 +90,9 @@ def main(argv=None):
                 song_data.add_instrument(instrument)
 
                 # iterate over each track at a time, looking for this instrument data
-                current_time = 0.0
                 current_note: GoiseNote | None = None
                 for track_index in range(len(xrns.tracks)):
+                    current_time = 0.0
                     for pattern_index in pattern_order:
                         # ok cool! we are looking at this pattern now
                         pattern: Pattern = xrns.patterns[pattern_index]
@@ -102,7 +102,7 @@ def main(argv=None):
                             line_time = current_time + (line_index * seconds_per_line)
 
                             for note in line.notes:
-                                if note.note == 'OFF':
+                                if note.note == 'OFF' and current_note:
                                     # we cancel the current note
                                     current_note.release = line_time
                                     current_note = None

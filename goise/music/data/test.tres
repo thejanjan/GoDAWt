@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="GoiseSongData" load_steps=19 format=3 uid="uid://dxt1ogyjpke04"]
+
+[ext_resource type="Script" path="res://addons/goise/data/instrument.gd" id="1_5f3fy"]
+[ext_resource type="Script" path="res://addons/goise/data/note.gd" id="1_hp8nu"]
+[ext_resource type="Script" path="res://addons/goise/data/song_data.gd" id="1_nirk5"]
+[ext_resource type="Script" path="res://addons/goise/data/effect.gd" id="2_rtmqs"]
+
+[sub_resource type="Resource" id="Resource_5lruy"]
+script = ExtResource("2_rtmqs")
+mode = 1
+params = Array[float]([1.7, 4.3])
+
+[sub_resource type="Resource" id="Resource_acqa8"]
+script = ExtResource("2_rtmqs")
+mode = 3
+params = Array[float]([5.0, 3.4])
+
+[sub_resource type="Resource" id="Resource_oo3rw"]
+script = ExtResource("1_hp8nu")
+note = "E#"
+time = 1.1
+cue = 0.0
+release = 6.4
+effects = Array[ExtResource("2_rtmqs")]([SubResource("Resource_5lruy"), SubResource("Resource_acqa8")])
+
+[sub_resource type="Resource" id="Resource_1bbyx"]
+script = ExtResource("2_rtmqs")
+mode = 3
+params = Array[float]([45.9, 1.2])
+
+[sub_resource type="Resource" id="Resource_yepq4"]
+script = ExtResource("2_rtmqs")
+mode = 4
+params = Array[float]([34.2, 11.11])
+
+[sub_resource type="Resource" id="Resource_jw7wk"]
+script = ExtResource("1_hp8nu")
+note = "F"
+time = 9.7
+cue = 0.0
+release = 2.3
+effects = Array[ExtResource("2_rtmqs")]([SubResource("Resource_1bbyx"), SubResource("Resource_yepq4")])
+
+[sub_resource type="Resource" id="Resource_tf2mw"]
+script = ExtResource("1_5f3fy")
+name = "track1"
+notes = Array[ExtResource("1_hp8nu")]([SubResource("Resource_oo3rw"), SubResource("Resource_jw7wk")])
+
+[sub_resource type="Resource" id="Resource_eyag8"]
+script = ExtResource("2_rtmqs")
+mode = 1
+params = Array[float]([7.6, 9.0])
+
+[sub_resource type="Resource" id="Resource_ysrvn"]
+script = ExtResource("2_rtmqs")
+mode = 2
+params = Array[float]([123.45, 0.001])
+
+[sub_resource type="Resource" id="Resource_we212"]
+script = ExtResource("1_hp8nu")
+note = "C#9"
+time = 1.1
+cue = 0.0
+release = 3.5
+effects = Array[ExtResource("2_rtmqs")]([SubResource("Resource_eyag8"), SubResource("Resource_ysrvn")])
+
+[sub_resource type="Resource" id="Resource_2bmib"]
+script = ExtResource("2_rtmqs")
+mode = 0
+params = Array[float]([3.3, 4.4])
+
+[sub_resource type="Resource" id="Resource_1gk0c"]
+script = ExtResource("2_rtmqs")
+mode = 0
+params = Array[float]([1.1, 2.2])
+
+[sub_resource type="Resource" id="Resource_itk0o"]
+script = ExtResource("1_hp8nu")
+note = "C5"
+time = 1.3
+cue = 0.0
+release = 7.6
+effects = Array[ExtResource("2_rtmqs")]([SubResource("Resource_2bmib"), SubResource("Resource_1gk0c")])
+
+[sub_resource type="Resource" id="Resource_7jpve"]
+script = ExtResource("1_5f3fy")
+name = "track2"
+notes = Array[ExtResource("1_hp8nu")]([SubResource("Resource_we212"), SubResource("Resource_itk0o")])
+
+[resource]
+script = ExtResource("1_nirk5")
+song_path = "res://music/test.wav"
+instruments = Array[ExtResource("1_5f3fy")]([SubResource("Resource_tf2mw"), SubResource("Resource_7jpve")])

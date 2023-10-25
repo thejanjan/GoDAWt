@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoiseSongData" load_steps=6 format=3 uid="uid://mc10a4fg2uf2l"]
+
+[ext_resource type="Script" path="res://addons/goise/data/instrument.gd" id="1_5f3fy"]
+[ext_resource type="Script" path="res://addons/goise/data/note.gd" id="1_hp8nu"]
+[ext_resource type="Script" path="res://addons/goise/data/song_data.gd" id="1_nirk5"]
+[ext_resource type="Script" path="res://addons/goise/data/effect.gd" id="2_rtmqs"]
+
+[sub_resource type="Resource" id="Resource_4qk33"]
+script = ExtResource("1_5f3fy")
+name = "inst_0"
+notes = Array[ExtResource("1_hp8nu")]([])
+
+[resource]
+script = ExtResource("1_nirk5")
+song_path = "res://music/song.wav"
+instruments = Array[ExtResource("1_5f3fy")]([SubResource("Resource_4qk33")])

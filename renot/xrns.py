@@ -131,16 +131,11 @@ class Pattern:
             if note_element:
                 if note_element.text == 'OFF':
                     self.note: str = 'OFF'
-                    self.octave: int = 0
-                elif note_element.text[1] == '-':
-                    self.note: str = note_element.text[0]
-                    self.octave: int = int(note_element.text[2])
                 else:
-                    self.note: str = note_element.text[0:1]
-                    self.octave: int = int(note_element.text[2])
+                    self.note: str = note_element.text
             else:
-                self.note: str = ''
-                self.octave: int = 0
+                self.note: str = 'C-5'
+            self.note.replace('-', '')
 
             self.instrument: int = int(inst_element.text, 16) if inst_element else -1
 

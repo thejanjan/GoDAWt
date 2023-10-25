@@ -1,15 +1,18 @@
+"""
+This module is the main file for running renot.
+"""
 import sys
 import os
 import argparse
 import logging
 from pathlib import Path
 
+from xrns import XrnsFile
+
 
 __date__ = '2023-10-24'
 __updated__ = '2023-10-24'
 __author__ = 'micahanichols27@gmail.com'
-
-from renot.xrns import XrnsFile
 
 
 def main(argv=None):

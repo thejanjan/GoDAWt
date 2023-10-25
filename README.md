@@ -15,7 +15,7 @@ their own rhythm and note editors by using the DAW as the editor.**
 
 This repository contains two tools for developers:
 1. **🎛️️ Goise,** a Godot plugin which provides the tools to integrate Goise resources into game projects for music syncing and rhythm games
-2. **🏜️ Reno,** a tool for processing Renoise project files into a Goise resources
+2. **🏜️ Renot,** a tool for processing Renoise project files into a Goise resources
 
 ---
 ## 🎛️ Goise
@@ -36,13 +36,13 @@ todo
 todo
 
 ---
-## 🏜 Reno
+## 🏜 Renot
 
-Reno is a tool for processing Renoise project files into a Godot resource for use in Goise.
+Renot is a tool for processing Renoise project files into a Godot resource for use in Goise.
 
 Renoise is a music tracker with the features and functionality of a modern DAW.
-**It is not mandatory to purchase it to use Reno,** as Renoise has an unlimited free trial that can do everything execpt export files to .wav.
-However, Reno works best with the integration of music exports, so I do recommend purchasing it if you are interested in using it for your project's primary DAW. 
+**It is not mandatory to purchase it to use Renot,** as Renoise has an unlimited free trial that can do everything execpt export files to .wav.
+However, Renot works best with the integration of music exports, so I do recommend purchasing it if you are interested in using it for your project's primary DAW. 
 
 ### Why Renoise?
 
@@ -71,7 +71,7 @@ todo
 All contributions are appreciated!
 I will be happy to look over and approve any PRs that I think are meaningful for the project.
 I would be especially interested in seeing tools to create Goise resources with other DAWs. 
-Reno is designed for my personal use and experience with Renoise as my primary DAW, but the integration of more mainstream DAWs would be greatly appreciated.
+Renot is designed for my personal use and experience with Renoise as my primary DAW, but the integration of more mainstream DAWs would be greatly appreciated.
 
 ## License
 

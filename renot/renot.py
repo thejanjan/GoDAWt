@@ -8,7 +8,8 @@ import argparse
 import logging
 from pathlib import Path
 
-from goise import GoiseSongData, GoiseInstrument, GoiseNote
+from note import Note
+from goise import GoiseSongData, GoiseTrack, GoiseNote
 from xrns import XrnsFile, Pattern
 
 __date__ = '2023-10-24'
@@ -54,27 +55,24 @@ def main(argv=None):
     for song_key, data in config['songs'].items():
         try:
             # load our project file
-            xrns_filepath = config['global']['xrns_in'] + data['name'] + '.xrns'
+            xrns_filepath = config['global']['xrns_in'] + data['filename'] + '.xrns'
             p(f'{song_key} - loading {xrns_filepath}')
             xrns = XrnsFile(xrns_filepath)
 
             # useful constants
             pattern_order: list[int] = xrns.pattern_sequence.order
-            beats_per_second = xrns.global_song_data.bpm / 60
-            lines_per_second = beats_per_second * xrns.global_song_data.lpb
-            seconds_per_line = 1 / lines_per_second
-            seconds_per_beat = seconds_per_line * xrns.global_song_data.lpb
-            cue_beats = data['cue']
-            cue_time = cue_beats * seconds_per_beat
+
+            # determine the bpm map
+            bpm_map = {0: xrns.global_song_data.bpm}
 
             # start creating our output file
             song_data = GoiseSongData(
-                song_path=config['global']['music_path'] + data['name'] + config['global']['music_format'],
-                window=data['window'],
+                song_path=config['global']['music_path'] + data['filename'] + config['global']['song_fileformat'],
+                bpm_map=bpm_map,
             )
 
             # iterate over each instrument name
-            for inst_name in data['insts']:
+            for inst_name, inst_data in data['insts'].items():
                 # find the index of this instrument
                 for i, xrns_instrument in enumerate(xrns.instruments):
                     if xrns_instrument.name == inst_name:
@@ -84,36 +82,41 @@ def main(argv=None):
                     p(f'{song_key} - could not find {inst_name} in {data["name"]}')
                     continue
 
+                # get instrument globals
+                transpose = xrns_instrument.transpose
+
                 # create our instrument type
                 p(f'{song_key} - building instrument {inst_name}')
-                instrument = GoiseInstrument(name=inst_name)
-                song_data.add_instrument(instrument)
+                instrument = GoiseTrack(name=inst_data.get('name', inst_name))
+                song_data.add_track(instrument)
 
                 # iterate over each track at a time, looking for this instrument data
                 current_note: GoiseNote | None = None
                 for track_index in range(len(xrns.tracks)):
-                    current_time = 0.0
+                    global_line_index = 0
+
                     for pattern_index in pattern_order:
                         # ok cool! we are looking at this pattern now
                         pattern: Pattern = xrns.patterns[pattern_index]
                         track: Pattern.PatternTrack = pattern.tracks[track_index]
 
-                        for line_index, line in track.lines.items():
-                            line_time = current_time + (line_index * seconds_per_line)
+                        for local_line_index, line in track.lines.items():
+                            line_index = global_line_index + local_line_index
 
                             for note in line.notes:
+                                delay_time = note.delay / 256
                                 if note.note == 'OFF' and current_note:
                                     # we cancel the current note
-                                    current_note.release = line_time
+                                    current_note.end = line_index + delay_time
                                     current_note = None
                                 elif note.instrument == instrument_index:
                                     # we start using this instrument
-                                    delay_time = (note.delay / 256) * seconds_per_line
+                                    noteobj = Note.from_string(note.note)
+                                    noteobj.transpose(transpose)
                                     current_note = GoiseNote(
-                                        note=note.note,
-                                        time=line_time + delay_time,
-                                        cue=line_time + cue_time + delay_time,
-                                        release=0.0,
+                                        note=noteobj,
+                                        beat=line_index + delay_time,
+                                        end=0.0,
                                     )
                                     instrument.add_note(current_note)
 
@@ -122,7 +125,7 @@ def main(argv=None):
                                     pass
 
                         # increase time by lines iterated over
-                        current_time += pattern.lines * seconds_per_line
+                        global_line_index += pattern.lines
 
             # write to output
             with open(config['global']['data_out'] + song_key + '.tres', 'w') as f:

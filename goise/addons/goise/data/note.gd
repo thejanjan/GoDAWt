@@ -2,20 +2,17 @@ extends Resource
 class_name GoiseNote
 
 
-@export var note: String
-@export var time: float
-@export var cue: float
-@export var release: float
+@export var note: int
+@export var beat: float
+@export var end: float
 @export var effects: Array[GoiseEffect]
 
 
-func _init(p_note: String = 'C3',
-			p_time: float = 0.0,
-			p_cue: float = -0.67,
-			p_release: float = 0.0,
+func _init(p_note: int = 0,
+			p_beat: float = 0.0,
+			p_end: float = 0.0,
 			p_effects: Array[GoiseEffect] = []):
 	note = p_note
-	time = p_time
-	cue = p_cue
-	release = p_release
+	beat = p_beat
+	end = p_end
 	effects = p_effects

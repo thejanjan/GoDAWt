@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GoiseSongData" load_steps=2 format=3 uid="uid://cn1hivcumpu55"]
+
+[ext_resource type="Script" path="res://addons/goise/data/song_data.gd" id="1_n6yga"]
+
+[resource]
+script = ExtResource("1_n6yga")
+song_path = ""
+bpm_map = {}
+tracks = Array[Resource("res://addons/goise/data/track.gd")]([])

@@ -1,3 +1,14 @@
+# Heads up!
+
+GoDAWt is a rhythm game engine plugin I am developing for primarily personal use, but with the planned adaptability for anyone to use as a staple for any rhythm game in Godot.
+
+I was originally developing this initially as a standalone, but pretty early on I decided that I need to actually be developing this engine with an actual rhythm game project for it to really have the functionality it deserves.
+
+Development on that project will be happening separately from this repository, but when it enters a more meaningful state, I will be updating this repository with a more finished plugin.
+
+Stay tuned!
+
+---
 # 🎹 GoDAWt  
 GoDAWt is a music engineer's toolkit for Godot 4+ to create easy music syncs and rhythm games.
 Making components of your game react to the music can heavily improve the immersion and experience of your game. 

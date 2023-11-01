@@ -27,9 +27,10 @@ class GoiseSongData:
 
     script_id = '1_nirk5'
 
-    def __init__(self, song_path: str = 'res://music/song.wav', bpm_map: dict[float, float] = None):
+    def __init__(self, song_path: str = 'res://music/song.wav', bpm_map: dict[float, float] = None, lpb_map: dict[float, float] = None):
         self.song_path: str = song_path
         self.bpm_map: dict[float, float] = bpm_map or {}
+        self.lpb_map: dict[float, float] = lpb_map or {}
         self.tracks: list[GoiseTrack] = []
 
     """
@@ -56,12 +57,16 @@ class GoiseSongData:
 
         # Create last resource reference.
         bpm_str = ',\n'.join(f'{key}: {val}' for key, val in self.bpm_map.items())
+        lbp_str = ',\n'.join(f'{key}: {val}' for key, val in self.lpb_map.items())
         last_ref = \
         f"""[resource]\n""" \
         f"""script = ExtResource("{GoiseSongData.script_id}")\n""" \
         f"""song_path = "{self.song_path}"\n""" \
         """bpm_map = {\n""" \
         f"""{bpm_str}\n""" \
+        """}\n""" \
+        """lpb_map = {\n""" \
+        f"""{lbp_str}\n""" \
         """}\n""" \
         f"""tracks = Array[ExtResource("{GoiseTrack.script_id}")]([{', '.join([
             f'SubResource("{track.get_unique_id()}")'

@@ -64,11 +64,13 @@ def main(argv=None):
 
             # determine the bpm map
             bpm_map = {0: xrns.global_song_data.bpm}
+            lpb_map = {0: xrns.global_song_data.lpb}
 
             # start creating our output file
             song_data = GoiseSongData(
                 song_path=config['global']['music_path'] + data['filename'] + config['global']['song_fileformat'],
                 bpm_map=bpm_map,
+                lpb_map=lpb_map,
             )
 
             # iterate over each instrument name

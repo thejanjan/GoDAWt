@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Goise"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GoiseMusicManager="*res://addons/goise/music_manager.tscn"
 
 [editor_plugins]
 
